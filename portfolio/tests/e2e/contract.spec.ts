@@ -139,7 +139,7 @@ test.describe('desktop contract', () => {
     await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
     await page.waitForTimeout(1800);
     await expect(page.locator('#head')).toHaveClass(/is-merged/);
-    const b = await page.locator('#head').boundingBox();
+    const b = await page.locator('#head .head-body').boundingBox();
     expect(b!.width).toBeGreaterThan(22);
     expect(b!.width).toBeLessThan(26);
     expect(Math.abs(b!.x + b!.width / 2 - 12)).toBeLessThanOrEqual(1);
