@@ -20,6 +20,7 @@ test.describe('type fits its container', () => {
       const fill = Math.max(...hero.lines) / hero.box;
       console.log(`hero @${width}: font ${hero.size.toFixed(0)}px, widest line fills ${(fill * 100).toFixed(0)}% of the container`);
       hero.lines.forEach((w, i) => expect(w, `hero line ${i + 1} @${width}`).toBeLessThanOrEqual(hero.box + 1));
+      if (hero.size < 150) expect(fill, `hero fill @${width}`).toBeGreaterThanOrEqual(0.9); // 9.5rem cap applies above this
 
       const names = await page.evaluate(() =>
         [...document.querySelectorAll<HTMLElement>('.display-scene')].map((h) => ({
