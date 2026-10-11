@@ -1,4 +1,3 @@
-import { Contact } from '@/components/Contact';
 import { Footer } from '@/components/Footer';
 import { Hero } from '@/components/Hero';
 import { Log } from '@/components/Log';
@@ -8,7 +7,8 @@ import { Behaviors, GraphSlot, Hairline, HeadSlot } from '@/components/Runtime';
 import { Stack } from '@/components/Stack';
 import { Work } from '@/components/Work';
 import { World } from '@/components/World';
-import { site } from '@/content/site';
+import { Receipts } from '@/components/Receipts';
+import { sameAs } from '@/content/receipts-data';
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -17,7 +17,7 @@ const jsonLd = {
   url: site.url,
   jobTitle: 'Founder & Full Stack Developer',
   address: { '@type': 'PostalAddress', addressLocality: 'Kathmandu', addressCountry: 'NP' },
-  sameAs: [site.github, site.linkedin, site.x].filter(Boolean),
+  sameAs,
 };
 
 export default function Page() {
@@ -34,8 +34,8 @@ export default function Page() {
         <Work />
         <Log />
         <Stack />
+        <Receipts />
         <Principles />
-        <Contact />
       </main>
       <Footer />
       <HeadSlot />

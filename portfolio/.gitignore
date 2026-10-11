@@ -21,6 +21,9 @@
 shots/
 test-results/
 
+# build-time generated content (receipts)
+src/content/generated/
+
 # production
 /build
 

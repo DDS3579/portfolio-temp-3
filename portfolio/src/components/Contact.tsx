@@ -15,7 +15,9 @@ const MESSAGES: Record<Exclude<Status, 'idle' | 'sending'>, string> = {
 
 const empty = { name: '', email: '', type: '', message: '' };
 
-export function Contact() {
+interface Hidden { github?: boolean; linkedin?: boolean; x?: boolean }
+
+export function Contact({ hidden = {} }: { hidden?: Hidden }) {
   const [data, setData] = useState(empty);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [status, setStatus] = useState<Status>('idle');
@@ -87,13 +89,13 @@ export function Contact() {
           <Reveal delay={120}>
             <div className="mb-10 flex flex-wrap gap-4">
               <a href="#contact-form" data-action="form" className="btn-solid">Start a Project</a>
-              {site.github && <a href={site.github} className="btn-ghost" target="_blank" rel="noopener noreferrer">View GitHub</a>}
+              {site.github && !hidden.github && <a href={site.github} className="btn-ghost" target="_blank" rel="noopener noreferrer">View GitHub</a>}
               {site.resume && <a href={site.resume} className="btn-ghost" download>Download Resume</a>}
             </div>
-            {(site.linkedin || site.x) && (
+            {(site.linkedin || site.x) && !hidden.linkedin && !hidden.x && (
               <p className="data-line mb-6 flex gap-4">
-                {site.linkedin && <a href={site.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-[var(--color-text)]">LinkedIn</a>}
-                {site.x && <a href={site.x} target="_blank" rel="noopener noreferrer" className="hover:text-[var(--color-text)]">X</a>}
+                {site.linkedin && !hidden.linkedin && <a href={site.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-[var(--color-text)]">LinkedIn</a>}
+                {site.x && !hidden.x && <a href={site.x} target="_blank" rel="noopener noreferrer" className="hover:text-[var(--color-text)]">X</a>}
               </p>
             )}
             <p className="data-line">Kathmandu 27.7172° N, 85.3240° E</p>
