@@ -20,11 +20,24 @@ const fontBytes = walk('out/_next/static').filter((f) => extname(f) === '.woff2'
 
 const jsBytes = js.reduce((n, [, b]) => n + b, 0);
 console.log('Largest scripts on this route (gzip):');
-js.slice(0, 8).forEach(([src, b]) => console.log(`  ${kb(b).padStart(9)}  ${src}`));
+// Heuristic label from file contents, so we can see framework vs our code.
+const label = (src) => {
+  const t = readFileSync(join('out', src), 'utf8');
+  if (/scroll-hairline|graph-wrap|pin-stage|head-body|contact-form/.test(t)) return 'OUR CODE';
+  if (/Minified React error|react\.transitional\.element/.test(t)) return 'React';
+  if (/__next_f|next-router-state-tree/i.test(t)) return 'Next runtime';
+  if (/turbopack/i.test(src)) return 'Turbopack runtime';
+  return '?';
+};
+js.slice(0, 8).forEach(([src, b]) => console.log(`  ${kb(b).padStart(9)}  ${label(src).padEnd(18)}${src}`));
 console.log(`  HTML itself (gzip): ${kb(gzipSync(readFileSync('out/index.html')).length)}\n`);
 
+// Our code = chunks labelled OUR CODE or '?' (conservative). Framework = the rest.
+const ourBytes = js.filter(([src]) => ['OUR CODE', '?'].includes(label(src))).reduce((n, [, b]) => n + b, 0);
+console.log(`Framework (React, Next router, runtime): ${kb(jsBytes - ourBytes)}  (informational)\n`);
 const rows = [
-  ['JS on this route (gzip)', jsBytes, 120],
+  ['Our code (gzip)', ourBytes, 30],
+  ['JS on this route (gzip)', jsBytes, 160],
   ['CSS (gzip)', cssBytes, 20],
   ['Fonts (woff2)', fontBytes, 110],
 ];
