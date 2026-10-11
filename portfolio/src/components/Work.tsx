@@ -111,10 +111,11 @@ function SceneText({ venture, headingId }: { venture: Venture; headingId: string
   const context = contextOf(venture);
   const stack = stackFor(venture.id);
   const meta = [branchOf(venture.id), venture.role].filter(Boolean).join(' · ');
+  const nlen = Math.max(...venture.name.split(' ').map((w) => w.length));
 
   return (
     <>
-      <h2 id={headingId} className="display-scene">{venture.name}</h2>
+      <h2 id={headingId} className="display-scene" style={{ '--nlen': nlen } as CSSProperties}>{venture.name}</h2>
       <p className="scene-category">{venture.category}</p>
       <p className="data-line scene-meta">{meta}</p>
       {context && <p className="scene-copy">{context}</p>}

@@ -84,8 +84,15 @@ body { font-size: 1.0625rem; line-height: 1.65; }
 .display-hero, .display-scene, .display-section {
   font-family: var(--font-display); letter-spacing: -0.035em; line-height: 0.92; color: var(--color-text);
 }
-.display-hero { font-weight: 800; font-size: clamp(3rem, 9.4vw - 1.6rem, 9.5rem); }
-.display-scene { font-weight: 800; font-size: clamp(2.75rem, 4vw + 0.5rem, 7.5rem); overflow-wrap: break-word; }
+.hero-head { container-type: inline-size; }
+/* --hero-fit = percent of the container width per em-of-text; tuned from the fit test's "fill" number */
+.display-hero { font-weight: 800; font-size: clamp(3rem, calc(var(--hero-fit, 9.4) * 1cqw), 9.5rem); }
+.scene-text { container-type: inline-size; }
+/* Short names go enormous (capped at 7.5rem); long ones shrink to fit the column. --nlen = longest word. */
+.display-scene {
+  font-weight: 800; overflow-wrap: break-word;
+  font-size: clamp(2.75rem, calc(100cqw / var(--nlen, 8) * 1.7), 7.5rem);
+}
 .display-section { font-weight: 700; font-size: clamp(2.25rem, 3.5vw + 0.5rem, 4.75rem); }
 .body-copy { max-width: 56ch; color: var(--color-muted); }
 .data-line {

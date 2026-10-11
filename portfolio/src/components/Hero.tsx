@@ -16,6 +16,7 @@ export function Hero() {
     <section id="hero" aria-labelledby="hero-title" className="hero">
       <p className="hero-label hero-fade" style={d(1.6)}>Founder &amp; Full Stack Developer</p>
 
+      <div className="hero-head">
       <h1 id="hero-title" className="display-hero">
         <span className="hero-line">
           <span className="hero-mask"><span className="hero-rise" style={d(0.3)}>I build businesses</span></span>
@@ -29,6 +30,7 @@ export function Hero() {
           <span className="sr-only">.</span>
         </span>
       </h1>
+      </div>
 
       <p className="body-copy hero-fade mt-8" style={{ ...d(1.6), maxWidth: '44ch' }}>
         Crafting products, systems, and digital experiences from first idea to scalable reality.

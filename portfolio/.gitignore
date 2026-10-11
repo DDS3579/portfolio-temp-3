@@ -17,6 +17,10 @@
 /.next/
 /out/
 
+# e2e screenshots and test artifacts
+shots/
+test-results/
+
 # production
 /build
 
