@@ -1,10 +1,8 @@
 import { Metadata } from 'next';
 import { readFileSync } from 'node:fs';
-import { site } from '@/content/site';
 import { levelFor, monthlyTotals, weekdayOf } from '@/lib/receipts';
-import { hasReceipts, hidden } from '@/content/receipts-data';
+import { hasReceipts } from '@/content/receipts-data';
 import type { Snapshot } from '@/lib/receipts';
-import Contact from './Contact';
 
 export const metadata: Metadata = {
   description: 'Build-time receipts: GitHub snapshot, contribution heatmap, and verified external links.',
@@ -139,7 +137,7 @@ export default function Receipts() {
                       rec.status === 'ok'
                         ? 'text-[var(--color-muted)]'
                         : rec.status === 'dead'
-                        ? 'text-[var(--color-head)]'
+                        ? 'text-[var(--color-text)]'
                         : 'text-[var(--color-muted)]';
                     return (
                       <tr key={url} className="border-t border-[var(--color-border)]">
@@ -156,18 +154,7 @@ export default function Receipts() {
               <p className="data-line text-[var(--color-muted)]">Link verification skipped (offline build or no links.json).</p>
             )}
           </div>
-        </div>
-      </div>
-
-      {/* Pass the hidden set into Contact by rendering it here with the prop.
-          Contact is a client component; the hidden list is tiny and serializable. */}
-      <Contact
-        hidden={{
-          github: hidden.includes(site.github ?? ''),
-          linkedin: hidden.includes(site.linkedin ?? ''),
-          x: hidden.includes(site.x ?? ''),
-        }}
-      />
+        </div>      </div>
     </section>
   );
 }

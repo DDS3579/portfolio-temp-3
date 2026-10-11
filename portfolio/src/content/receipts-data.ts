@@ -27,6 +27,6 @@ export const hidden: string[] = links
   ? Object.entries(links).filter(([, r]) => r.status === 'dead').map(([url]) => url)
   : [];
 
-export const sameAs = [site.github, site.linkedin, site.x]
-  .filter(Boolean)
-  .filter((url) => !hidden.includes(url));
+const linkUrls = [site.github, site.linkedin, site.x].filter((u): u is string => typeof u === 'string');
+
+export const sameAs = linkUrls.filter((url) => !hidden.includes(url));

@@ -1,3 +1,4 @@
+import { Contact } from '@/components/Contact';
 import { Footer } from '@/components/Footer';
 import { Hero } from '@/components/Hero';
 import { Log } from '@/components/Log';
@@ -7,8 +8,9 @@ import { Behaviors, GraphSlot, Hairline, HeadSlot } from '@/components/Runtime';
 import { Stack } from '@/components/Stack';
 import { Work } from '@/components/Work';
 import { World } from '@/components/World';
-import { Receipts } from '@/components/Receipts';
-import { sameAs } from '@/content/receipts-data';
+import { site } from '@/content/site';
+import Receipts from '@/components/Receipts';
+import { hidden, sameAs } from '@/content/receipts-data';
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -36,6 +38,7 @@ export default function Page() {
         <Stack />
         <Receipts />
         <Principles />
+        <Contact hidden={hidden} />
       </main>
       <Footer />
       <HeadSlot />
